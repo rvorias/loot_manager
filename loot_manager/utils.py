@@ -11,7 +11,7 @@ CACHE_PATH = RESOURCES / "prompts_cache.json"
 def get_prompts(item_class=None):
     """FLASK"""
     suffix = "_" + item_class if item_class != None else ""
-    with open(RESOURCES / "prompts" / f"prompts{suffix}.json", "r") as file:
+    with open(RESOURCES / f"prompts{suffix}.json", "r") as file:
         prompts = json.load(file)
     return prompts
 
