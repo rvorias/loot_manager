@@ -1,19 +1,21 @@
 import json
 from pathlib import Path
 import os.path
+import glob
 
 RESOURCES = Path("resources/")
 CACHE_PATH = RESOURCES / "prompts_cache.json"
 
 
 def get_prompts(item_class=None):
+    """FLASK"""
     suffix = "_" + item_class if item_class != None else ""
     with open(RESOURCES / "prompts" / f"prompts{suffix}.json", "r") as file:
         prompts = json.load(file)
     return prompts
 
-
 def pop_prompt(item_class=None):
+    """FLASK"""
     if os.path.isfile(CACHE_PATH):
         with open(CACHE_PATH, "r") as file:
             prompts_stack = json.load(file)
@@ -42,6 +44,22 @@ def pop_prompt(item_class=None):
 
     return popped_prompt, n_prompts
 
-
 def clear_cache():
+    """FLASK"""
     os.remove(CACHE_PATH)
+
+# general utils
+
+def get_templates():
+    raw_paths = glob.glob("resources/templates/*")
+    templates = {x.split("/")[-1][:-4].replace("_"," ") : x for x in raw_paths}
+    return templates
+
+def prompt_to_template(prompt):
+    templates = get_templates()
+    candidate = ''
+    for t in templates:
+        if t.lower() in prompt.lower():
+            if len(t) > len(candidate):
+                candidate = t
+    return templates[candidate]
