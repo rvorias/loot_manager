@@ -55,11 +55,11 @@ def get_templates():
     templates = {x.split("/")[-1][:-4].replace("_"," ") : x for x in raw_paths}
     return templates
 
-def prompt_to_template(prompt):
+def prompt_to_class_and_template(prompt):
     templates = get_templates()
     candidate = ''
     for t in templates:
         if t.lower() in prompt.lower():
             if len(t) > len(candidate):
                 candidate = t
-    return templates[candidate]
+    return candidate, templates[candidate]
