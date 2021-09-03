@@ -3,7 +3,8 @@ from pathlib import Path
 import os.path
 import glob
 
-RESOURCES = Path("resources/")
+# supposed to be called one level higher than the repo!
+RESOURCES = Path("loot_manager/resources/")
 CACHE_PATH = RESOURCES / "prompts_cache.json"
 
 
@@ -51,7 +52,7 @@ def clear_cache():
 # general utils
 
 def get_templates():
-    raw_paths = glob.glob("resources/templates/*")
+    raw_paths = glob.glob("loot_manager/resources/templates/*")
     templates = {x.split("/")[-1][:-4].replace("_"," ") : x for x in raw_paths}
     return templates
 
