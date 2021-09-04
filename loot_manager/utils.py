@@ -64,3 +64,8 @@ def prompt_to_class_and_template(prompt):
             if len(t) > len(candidate):
                 candidate = t
     return candidate, templates[candidate]
+
+def get_item_classes():
+    with open("loot_manager/resources/classes.json", "r") as file:
+        item_classes = json.load(file)
+    return item_classes
