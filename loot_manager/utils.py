@@ -6,6 +6,12 @@ import glob
 RESOURCES = Path("loot_manager/resources/")
 CACHE_PATH = RESOURCES / "prompts_cache.json"
 
+def get_prompts(item_class=None):
+    suffix = "_" + item_class if item_class != None else ""
+    with open(RESOURCES / f"prompts{suffix}.json", "r") as file:
+        prompts = json.load(file)
+    return prompts
+
 def get_templates():
     raw_paths = glob.glob("loot_manager/resources/templates/*")
     templates = {x.split("/")[-1][:-4].replace("_"," ") : x for x in raw_paths}
